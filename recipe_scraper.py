@@ -1,4 +1,6 @@
+from recipe import Recipe
 import requests
+
 from bs4 import BeautifulSoup
 
 
@@ -7,8 +9,7 @@ from bs4 import BeautifulSoup
 def scrap_recipe():
     
     url = 'https://www.orangepage.net/recipes/search/421?page={}'
-    recipe_title_list = []
-    recipe_text_list = []
+    recipe_objects = []
     
     #1ページ目から3ページ目までをループ
     for page in range(1,4):
@@ -37,12 +38,11 @@ def scrap_recipe():
                 recipe_text = recipe_text
 
 
-            recipe_title_list.append(recipe_title)
-            recipe_text_list.append(recipe_text)
+            recipe_object = Recipe(recipe_title,recipe_text)
+            recipe_objects.append(recipe_object)
             
-    return recipe_title_list,recipe_text_list
+    return recipe_objects
 
-scrap_recipe()
     
 
     

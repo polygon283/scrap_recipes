@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
 
 
-recipe_title_list,recipe_text_list = scrap_recipe()#レシピの取得
+recipe_objects = scrap_recipe()#レシピの取得
 chrome_path = '/Users/akaunntomei/Desktop/django_scraping/chromedriver'
 
 #ブログの管理者ページへアクセス
@@ -41,7 +41,7 @@ add_link.click()
 sleep(1)
 
 #postを保存する（全てのレシピに対してループ）
-for recipe_title,recipe_text in zip(recipe_title_list,recipe_text_list):
+for recipe in recipe_objects:
    
     #投稿内容を入力
     
@@ -50,11 +50,11 @@ for recipe_title,recipe_text in zip(recipe_title_list,recipe_text_list):
     author_select.select_by_value('1')
 
     Title = driver.find_element_by_class_name('vTextField')
-    Title.send_keys(recipe_title)
+    Title.send_keys(recipe.title)
     sleep(1)
 
     Text = driver.find_element_by_class_name('vLargeTextField')
-    Text.send_keys(recipe_text)
+    Text.send_keys(recipe.text)
     sleep(1)
     
     #投稿日時を指定
