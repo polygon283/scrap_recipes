@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 
 #スクレイピングのメソッドを作成
-def scrap_recipe():
+def fetch_recipe():
     
     url = 'https://www.orangepage.net/recipes/search/421?page={}'
     recipe_objects = []

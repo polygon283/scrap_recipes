@@ -1,12 +1,12 @@
 from time import sleep
-from recipe_scraper import scrap_recipe
+from recipe_scraper import fetch_recipe
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
 
 
-recipe_objects = scrap_recipe()#レシピの取得
+recipe_objects = fetch_recipe()#レシピの取得
 chrome_path = '/Users/akaunntomei/Desktop/django_scraping/chromedriver'
 
 #ブログの管理者ページへアクセス
