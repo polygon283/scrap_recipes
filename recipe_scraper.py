@@ -1,4 +1,4 @@
-from recipe import Recipe
+from recipe import Recipe, RecipeFactory, InputValueException
 import requests
 
 from bs4 import BeautifulSoup
@@ -28,22 +28,23 @@ def fetch_recipe():
                 continue
             
             #レシピからタイトルを取り出す
-            recipe_title = recipe.find('h2',class_='tit').text
+            scraped_recipe_title = recipe.find('h2',class_='tit').text
 
             #レシピからレシピのテキストを取り出す：if文でテキストがない場合の対処をする
-            recipe_text = recipe.find('p',class_='txt').text
-            if recipe_text == '':
-                recipe_text = 'テキストなし'
-            else:
-                recipe_text = recipe_text
-
-
-            recipe_object = Recipe(recipe_title,recipe_text)
-            recipe_objects.append(recipe_object)
+            scraped_recipe_text = recipe.find('p',class_='txt').text
+            
+            try:
+                recipe_object = RecipeFactory.create_recipe(scraped_recipe_title, scraped_recipe_text)
+                recipe_objects.append(recipe_object)
+            
+            except InputValueException as e:
+                # エラーが発生した場合はその内容を出力
+                print(f"An error occurred: {e}")  # エラーが発生した場合はその内容を出力
+            
+        
             
     return recipe_objects
 
-    
 
     
 
